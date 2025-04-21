@@ -178,7 +178,7 @@ include 'includes/header.php';
                     echo "<p>User not found.</p>";
                 }
                 
-                // Don't close connection here as it might be needed elsewhere
+               
             }
             ?>
         </div>
