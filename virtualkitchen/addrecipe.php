@@ -3,14 +3,13 @@
 <?php session_start(); ?>
 
 <?php
-// Check if form was submitted
+
 if (isset($_POST['submit'])) {
-    // Check if user is logged in
+ 
     if (!isset($_SESSION['uid'])) {
         $loginError = "<p style='color:red; font-weight:bold;'>You must be logged in to add a recipe.</p>";
     } else {
-        // User is logged in, proceed with recipe submission
-        // Get form data and sanitize inputs
+       
         $name = mysqli_real_escape_string($conn, $_POST['name']);
         $description = mysqli_real_escape_string($conn, $_POST['description']);
         $type = mysqli_real_escape_string($conn, $_POST['type']);
@@ -19,16 +18,16 @@ if (isset($_POST['submit'])) {
         $instructions = mysqli_real_escape_string($conn, $_POST['instructions']);
         $uid = $_SESSION['uid'];
 
-        // Handle image upload if provided
-        $image_path = "uploads/default.jpg"; // Default image path
+        
+        $image_path = "uploads/default.jpg"; 
         if(isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
             $allowed = ['jpg', 'jpeg', 'png', 'gif'];
             $filename = $_FILES['image']['name'];
             $file_ext = pathinfo($filename, PATHINFO_EXTENSION);
 
-            // Check if file extension is allowed
+            
             if(in_array(strtolower($file_ext), $allowed)) {
-                // Create uploads directory if it doesn't exist
+              
                 if (!file_exists('uploads')) {
                     mkdir('uploads', 0777, true);
                 }
@@ -42,8 +41,7 @@ if (isset($_POST['submit'])) {
             }
         }
 
-        // Use existing connection from config.php
-        // No need to create a new connection
+       
 
         // Insert recipe into database
         $sql = "INSERT INTO recipes (name, description, type, Cookingtime, ingredients, instructions, image, uid)
